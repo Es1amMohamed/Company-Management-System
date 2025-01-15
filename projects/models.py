@@ -2,15 +2,15 @@ from django.db import models
 import uuid
 from django.utils.text import slugify
 from company.models import Company
-from employee.models import Employee
+from department.models import Department
 
 class Project(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField()
-    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='projects')
-    department = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='projects')
-    employees = models.ManyToManyField(Employee, related_name='projects')
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='company_projects')
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='department_projects')
+    employees = models.ManyToManyField('employee.Employee', related_name='participated_projects')
     start_date = models.DateField()
     end_date = models.DateField()
     slug = models.SlugField(null=True, blank=True)
