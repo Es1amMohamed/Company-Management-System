@@ -13,13 +13,13 @@ from datetime import date
 class Employee(models.Model):
 
     Position = [
-        ('CEO', 'CEO'),
         ('Admin', 'Admin'),
         ('Department Head', 'Department Head'),
         ('Manager', 'Manager'),
+        ('HR', 'HR'),
         ('Employee', 'Employee')
     ]
-
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     first_name = models.CharField(max_length=100,null=False, blank=False)
     last_name = models.CharField(max_length=100,null=False, blank=False)
